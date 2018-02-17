@@ -1,5 +1,7 @@
 package com.google.gwt.sample.stockwatcher.client;
 
+import java.util.ArrayList;
+
 /**
  * Imports die wichtig für den Stockwatcher sind.
  */
@@ -29,11 +31,12 @@ public class StockWatcher implements EntryPoint {
 	 * Alle wichtigen Panels, Button und Tabels um die Stockwatcher GUI aufzubauen.
 	 */
 	private VerticalPanel mainPanel = new VerticalPanel();
-	private FlexTable stocksFelxTable = new FlexTable();
+	private FlexTable stocksFlexTable = new FlexTable();
 	private HorizontalPanel addPanel = new HorizontalPanel();
 	private TextBox newSymbolTextBox = new TextBox();
 	private Button addStockButton = new Button("Add");
 	private Label lastUpdatedLabel = new Label();
+	private ArrayList<String> stocks = new ArrayList<String>();
 	
 	
 	public void onModuleLoad() {
@@ -41,10 +44,10 @@ public class StockWatcher implements EntryPoint {
 		/**
 		 * Erst wird eine Tabelle für die Stock Daten erstellt.
 		 */
-		stocksFelxTable.setText(0, 0, "Symbol");
-		stocksFelxTable.setText(0, 1, "Preis");
-		stocksFelxTable.setText(0, 2, "Ändern");
-		stocksFelxTable.setText(0, 3, "Löschen");
+		stocksFlexTable.setText(0, 0, "Symbol");
+		stocksFlexTable.setText(0, 1, "Preis");
+		stocksFlexTable.setText(0, 2, "Ändern");
+		stocksFlexTable.setText(0, 3, "Löschen");
 		
 		/**
 		 * Jetzt wird dem Horizontalen Panel die TextBox und der Stock Button angeheftet/montiert.
@@ -56,7 +59,7 @@ public class StockWatcher implements EntryPoint {
 		 * Hier werden dem Vertikalen Panel den FlexTabel und das Label hinzugefügt plus 
 		 * das addPanel, welches wir oben festgelegt haben auch an das mainPanel geheftet/verbunden.
 		 */
-		mainPanel.add(stocksFelxTable);
+		mainPanel.add(stocksFlexTable);
 		mainPanel.add(addPanel);
 		mainPanel.add(lastUpdatedLabel);
 		
@@ -120,8 +123,50 @@ public class StockWatcher implements EntryPoint {
 	       * Bei erfokgreicher Eingabe eines Stocks wird die TextBox wieder geleert.
 	       */
 	      newSymbolTextBox.setText("");
+	      
+	      /**
+	       * Prüfung ob hinzuzufügendes Symbol schon vorhanden ist und wird bei vorhanden sein nicht übernommen.
+	       * return Statement stoppt das weiter ausführen der Methode addStock().
+	       */
+	      if(stocks.contains(symbol))
+	    	  return;
+	      
+	      /**
+	       * Gibt die Anzahl der Rows zurück.
+	       * Fügt den nicht vorhanden Stock zur Tabelle hinzu.
+	       */
+	      int row = stocksFlexTable.getRowCount();
+	      stocks.add(symbol);
+	      /**
+	       * Andekdote:
+	       * Wird die Methode setText() aufgerufen wird sich der FlexTabel automatisch anpassen.
+	       * Daher muss man sich nicht um die Anpassung der Tabelle kümmern.
+	       */
+	      stocksFlexTable.setText(row, 0, symbol);
+	      
+	      /**
+	       * Ein Button fürs löschen wird erzeugt.
+	       */
+	      Button löscheStockButton = new Button ("löschen");
+	      
+	      /**
+	       * Dem löschenStockButton wird ein ClickHandler zugewiesen der auf einen Click auf den Button wartet.
+	       */
+	      löscheStockButton.addClickHandler(new ClickHandler(){
+	    	  
+			public void onClick(ClickEvent event) {
+				int löschIndex = stocks.indexOf(symbol);
+				stocks.remove(löschIndex);
+				stocksFlexTable.removeRow(löschIndex + 1);	
+			}
+	      });
+	      stocksFlexTable.setWidget(row, 3, löscheStockButton);
+	      
+	      // TODO Get the stock price.
+
+	
 
 	    }
-		
+	
 	}
 

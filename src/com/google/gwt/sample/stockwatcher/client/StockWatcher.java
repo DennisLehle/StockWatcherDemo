@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -185,9 +186,28 @@ public class StockWatcher implements EntryPoint {
 		
 		/**
 		 * Methode zum refreshen der WatchList.
+		 * Wird aufgerufen wenn User auf Add Stock drückt und alle 5 Sekunden wenn der Timer feuert.
 		 */
 		private void refreshWatchList(){
+			//Anlegen von Lokalen Variablen.
+			final double MAX_PRICE = 100.0; // $100.00
+			final double MAX_PRICE_CHANGE = 0.02; //+/- 2%
 			
+			/**
+			 * 1. Neues ArrayList Objekt namens Stockpreise wird erstellt. [länge der Stocks die vorhanden sind. ArrayListe oben definiert]
+			 * 2. Die ArrayListe stocks wird durchlaufen (for-Schleife)
+			 * 3. In der for-Schleife werden die Variablen mit hilfe der Random Klasse berechnet. Mit den Werten die in den Variablen ganz oben festgelegt wurden.
+			 * 4. Die Werte werden dann der updateTable() Methode weitergereicht.
+			 */
+			StockPrice[] preise = new StockPrice[stocks.size()];
+			for(int i = 0; i < stocks.size(); i++){
+				double preis = Random.nextDouble() * MAX_PRICE;
+				double ändern = preis * MAX_PRICE_CHANGE * (Random.nextDouble() * 2.0 - 1.0);
+				
+			preise[i] = new StockPrice(stocks.get(i), preis, ändern);
+			
+			}			
+			updateTable(preise);
 		}
 	}
 

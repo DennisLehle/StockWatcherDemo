@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -30,6 +31,7 @@ public class StockWatcher implements EntryPoint {
 	/**
 	 * Alle wichtigen Panels, Button und Tabels um die Stockwatcher GUI aufzubauen.
 	 */
+	private static final int REFRESH_INTERVAL = 5000;
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private FlexTable stocksFlexTable = new FlexTable();
 	private HorizontalPanel addPanel = new HorizontalPanel();
@@ -74,6 +76,19 @@ public class StockWatcher implements EntryPoint {
 		 */
 		newSymbolTextBox.setFocus(true);
 		
+		/**
+		 * Timer fürs automatische refreshing der Stocks.
+		 */
+	      Timer refreshTimer = new Timer() {
+	        @Override
+	        public void run() {
+	        	refreshWatchList();
+	        }
+	      };
+	      refreshTimer.scheduleRepeating(REFRESH_INTERVAL);
+
+
+	
 		
 		/**
 		 * ClickHandler wird realisiert in einer Annoynmen inneren Klasse, welche die Methode AddStock() aufruft,
@@ -163,10 +178,16 @@ public class StockWatcher implements EntryPoint {
 	      stocksFlexTable.setWidget(row, 3, löscheStockButton);
 	      
 	      // TODO Get the stock price.
-
+	      refreshWatchList();
 	
 
 	    }
-	
+		
+		/**
+		 * Methode zum refreshen der WatchList.
+		 */
+		private void refreshWatchList(){
+			
+		}
 	}
 

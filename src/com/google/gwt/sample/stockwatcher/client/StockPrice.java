@@ -7,7 +7,7 @@ public class StockPrice {
 	 */
 	private String symbol;
 	private double preis;
-	private double ändern;
+	private double änderung;
 	
 	/**
 	 * Leerer Konstruktor, wird auch ohne anlegen beim ausführen der Applikation erzeugt.
@@ -22,10 +22,10 @@ public class StockPrice {
 	 * @param preis
 	 * @param ändern
 	 */
-	public StockPrice(String symbol, double preis, double ändern){
+	public StockPrice(String symbol, double preis, double änderung){
 		this.symbol = symbol;
 		this.preis = preis;
-		this.ändern = ändern;
+		this.änderung = änderung;
 	}
 	
 	
@@ -46,11 +46,11 @@ public class StockPrice {
 		this.preis = preis;
 	}
 	/**
-	 * Setzen einer Variable Ändern.
+	 * Setzen einer Variable Änderung.
 	 * @param ändern
 	 */
-	public void setÄndern(double ändern){
-		this.ändern = ändern;
+	public void setÄndern(double änderung){
+		this.änderung = änderung;
 	}
 	
 	//------------------Get-Methoden------------------------
@@ -69,11 +69,11 @@ public class StockPrice {
 		return preis;
 	}
 	/**
-	 * AUslesen einer Variable Ändern.
+	 * AUslesen einer Variable Änderung.
 	 * @return
 	 */
-	public double getÄndern(){
-		return ändern;
+	public double getÄnderung(){
+		return änderung;
 	}
 	
 }

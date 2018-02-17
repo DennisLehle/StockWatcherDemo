@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.i18n.client.NumberFormat;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -202,12 +203,44 @@ public class StockWatcher implements EntryPoint {
 			StockPrice[] preise = new StockPrice[stocks.size()];
 			for(int i = 0; i < stocks.size(); i++){
 				double preis = Random.nextDouble() * MAX_PRICE;
-				double ändern = preis * MAX_PRICE_CHANGE * (Random.nextDouble() * 2.0 - 1.0);
+				double änderung = preis * MAX_PRICE_CHANGE * (Random.nextDouble() * 2.0 - 1.0);
 				
-			preise[i] = new StockPrice(stocks.get(i), preis, ändern);
+			preise[i] = new StockPrice(stocks.get(i), preis, änderung);
 			
 			}			
 			updateTable(preise);
 		}
+		
+		/**
+		 * Methode zum Updaten der Preise einer Tabelle.
+		 * @param preise
+		 */
+		private void updateTable (StockPrice[] preise){
+			for (int i = 0; i < preise.length; i++){
+				updateTable(preise[i]);
+			}
+		}
+
+		/**
+		 * Updaten einer einzelnen Zeile der Stock Tabelle.
+		 * @param stockPrice
+		 */
+		private void updateTable(StockPrice preis) {
+			/**
+			 * Abfrage ob Stock sich noch in der Tabelle befindet.
+			 * Wenn nicht wird die Methode beendet.
+			 */
+			if(!stocks.contains(preis.getSymbol())){
+				return;
+			}
+			
+			int row = stocks.indexOf(preis.getSymbol()) + 1;
+			
+			String preisText = NumberFormat.getFormat("#,##0.00").format(preis.getPreis());
+			NumberFormat ändernFormat = NumberFormat.getFormat("+#,##0.00;-#,##0.00");
+			String changeText = ändernFormat.format(preis.getÄnderung());
+		    String changePercentText = ändernFormat.format(preis.getChangePercent());
+		}
+		
 	}
 

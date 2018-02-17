@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -79,7 +80,9 @@ public class StockWatcher implements EntryPoint {
 			public void onClick(ClickEvent event){
 				addStock();
 			}
-		});
+				
+			});
+	
 		
 		/**
 		 * Methode wartet auf Eingaben in die TextBox
@@ -92,15 +95,33 @@ public class StockWatcher implements EntryPoint {
 				}
 			}
 		});
-		
+	}
+	
 		/**
-		 * Methode die dem FlextTabel einen Stock beim pressen des Buttons hinzufügt.
+		 * Methode die einen Stock hinzufügt.
+		 * Eingaben dürfen nur eine länge von 1-10 aufweisen.
+	     * Erlaubte Eingaben sind: Punkt, Zahl und Buchstaben aber keine Sonderzeichen.
 		 */
-		private void addStock(){
-			
-			
-		}
-		
+		private void addStock() {
+	      final String symbol = newSymbolTextBox.getText().toUpperCase().trim();
+	      newSymbolTextBox.setFocus(true);
+
+	      /**
+	       * Wird ein Sonderzeichen eingegeben Popt ein Fenster auf, welches einen Hinweis gibt dass ein
+	       * Sonderzeichen / ungültiges Zeichen eingegeben wurde.
+	       */
+	      if (!symbol.matches("^[0-9A-Z\\.]{1,10}$")) {
+	        Window.alert("'" + symbol + "' is not a valid symbol.");
+	        newSymbolTextBox.selectAll();
+	        return;
+	      }
+
+	      /**
+	       * Bei erfokgreicher Eingabe eines Stocks wird die TextBox wieder geleert.
+	       */
+	      newSymbolTextBox.setText("");
+
+	    }
 		
 	}
-}
+

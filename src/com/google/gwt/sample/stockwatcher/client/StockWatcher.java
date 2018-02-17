@@ -4,6 +4,10 @@ package com.google.gwt.sample.stockwatcher.client;
  * Imports die wichtig für den Stockwatcher sind.
  */
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -11,6 +15,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -56,6 +63,44 @@ public class StockWatcher implements EntryPoint {
 		 * Zuletzt wird das MainPanel, welches jetzt das AddPanel ebenfalls enthält zsmgefüht mit der HTML Hostpage.
 		 */
 		RootPanel.get("stockList").add(mainPanel);
+		
+		/**
+		 * Wenn alles geladen wurde kann der User nun Stocks hinzufügen. Daher wird dies zuletzt angefügt.
+		 * Hierfür wird die TextBox für die Maus auf true gesetzt.
+		 */
+		newSymbolTextBox.setFocus(true);
+		
+		
+		/**
+		 * ClickHandler wird realisiert in einer Annoynmen inneren Klasse, welche die Methode AddStock() aufruft,
+		 * wenn der ClickHandler gefeuert wird.
+		 */
+		addStockButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event){
+				addStock();
+			}
+		});
+		
+		/**
+		 * Methode wartet auf Eingaben in die TextBox
+		 * Wenn etwas in die TextBox eingetragen wird, und Enter gedrückt wird wird die Methode addStock() ausgeführt.
+		 */
+		newSymbolTextBox.addKeyDownHandler(new KeyDownHandler(){
+			public void onKeyDown(KeyDownEvent event){
+				if (event.getNativeKeyCode()==KeyCodes.KEY_ENTER){
+					addStock();
+				}
+			}
+		});
+		
+		/**
+		 * Methode die dem FlextTabel einen Stock beim pressen des Buttons hinzufügt.
+		 */
+		private void addStock(){
+			
+			
+		}
+		
 		
 	}
 }

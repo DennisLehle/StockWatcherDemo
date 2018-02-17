@@ -1,17 +1,12 @@
 package com.google.gwt.sample.stockwatcher.client;
 
-import com.google.gwt.sample.stockwatcher.shared.FieldVerifier;
+/**
+ * Imports die wichtig für den Stockwatcher sind.
+ */
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -21,25 +16,46 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class StockWatcher implements EntryPoint {
+	
 	/**
-	 * The message displayed to the user when the server cannot be reached or
-	 * returns an error.
+	 * Alle wichtigen Panels, Button und Tabels um die Stockwatcher GUI aufzubauen.
 	 */
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network " + "connection and try again.";
-
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
-	 */
-	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-
-	/**
-	 * This is the entry point method.
-	 */
+	private VerticalPanel mainPanel = new VerticalPanel();
+	private FlexTable stocksFelxTable = new FlexTable();
+	private HorizontalPanel addPanel = new HorizontalPanel();
+	private TextBox newSymbolTextBox = new TextBox();
+	private Button addStockButton = new Button("Add");
+	private Label lastUpdatedLabel = new Label();
+	
+	
 	public void onModuleLoad() {
 	
+		/**
+		 * Erst wird eine Tabelle für die Stock Daten erstellt.
+		 */
+		stocksFelxTable.setText(0, 0, "Symbol");
+		stocksFelxTable.setText(0, 1, "Preis");
+		stocksFelxTable.setText(0, 2, "Ändern");
+		stocksFelxTable.setText(0, 3, "Löschen");
 		
+		/**
+		 * Jetzt wird dem Horizontalen Panel die TextBox und der Stock Button angeheftet/montiert.
+		 */
+		addPanel.add(newSymbolTextBox);
+		addPanel.add(addStockButton);
 		
+		/**
+		 * Hier werden dem Vertikalen Panel den FlexTabel und das Label hinzugefügt plus 
+		 * das addPanel, welches wir oben festgelegt haben auch an das mainPanel geheftet/verbunden.
+		 */
+		mainPanel.add(stocksFelxTable);
+		mainPanel.add(addPanel);
+		mainPanel.add(lastUpdatedLabel);
+		
+		/**
+		 * Zuletzt wird das MainPanel, welches jetzt das AddPanel ebenfalls enthält zsmgefüht mit der HTML Hostpage.
+		 */
+		RootPanel.get("stockList").add(mainPanel);
 		
 	}
 }

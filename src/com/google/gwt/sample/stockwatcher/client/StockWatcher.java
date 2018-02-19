@@ -1,6 +1,7 @@
 package com.google.gwt.sample.stockwatcher.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Imports die wichtig für den Stockwatcher sind.
@@ -24,6 +25,7 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -219,6 +221,12 @@ public class StockWatcher implements EntryPoint {
 			for (int i = 0; i < preise.length; i++){
 				updateTable(preise[i]);
 			}
+			/**
+			 * Anzeigen des Zeitstempels und letzter Refresh.
+			 */
+			DateTimeFormat datumsFormat = DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM);
+			lastUpdatedLabel.setText("Letztes update : " + datumsFormat.format(new Date()));
+
 		}
 
 		/**
@@ -241,6 +249,9 @@ public class StockWatcher implements EntryPoint {
 			String aenderungText = ändernFormat.format(preis.getAenderung());
 		    String aenderungProzentText = ändernFormat.format(preis.getAenderungProzent());
 		    
+		    /**
+		     * Ausfüllen der Felder und Preis (Aktualisierung).
+		     */
 		    stocksFlexTable.setText(row, 1, preisText);
 		    stocksFlexTable.setText(row, 2, aenderungText + " (" + aenderungProzentText + "%)");
 		}

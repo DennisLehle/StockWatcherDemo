@@ -77,7 +77,7 @@ public class StockPrice {
 	}
 	
 	public double getAenderungProzent(){
-		return 10.0 * this.aenderung / this.preis;
+		return 100.0 * this.aenderung / this.preis;
 	}
 	
 }

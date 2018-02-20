@@ -56,10 +56,26 @@ public class StockWatcher implements EntryPoint {
 		stocksFlexTable.setText(0, 3, "Löschen");
 		
 		/**
+		 * Hinzufügen von Style elemente in die StockList Tabelle.
+		 * Die Column ab dem 3ten stocksFlexTabble.getCellFormatter.addStyleName spiegeln
+		 * die Column wider die wir bei den Buttons oben festgelegt haben.
+		 */
+		stocksFlexTable.getRowFormatter().addStyleName(0, "watchListHeader");
+		stocksFlexTable.addStyleName("watchList");
+		stocksFlexTable.getCellFormatter().addStyleName(0, 1, "watchListNumericColumn");
+		stocksFlexTable.getCellFormatter().addStyleName(0, 2, "watchListNumericColumn");
+		stocksFlexTable.getCellFormatter().addStyleName(0, 3, "watchListRemoveColumn");
+		
+		/**
 		 * Jetzt wird dem Horizontalen Panel die TextBox und der Stock Button angeheftet/montiert.
 		 */
 		addPanel.add(newSymbolTextBox);
 		addPanel.add(addStockButton);
+		/**
+		 * Style für das addPanel von CSS einbinden.
+		 * Fügt eine kleine Lücke zwischen TexBox/AddButton und dem Stock Table ein.
+		 */
+		addPanel.addStyleName("hinzufügePanel");
 		
 		/**
 		 * Hier werden dem Vertikalen Panel den FlexTabel und das Label hinzugefügt plus 
@@ -156,6 +172,14 @@ public class StockWatcher implements EntryPoint {
 	       */
 	      int row = stocksFlexTable.getRowCount();
 	      stocks.add(symbol);
+	      /**
+	       * Hier wird der Style für den hinzugefügten Stock definiert, wenn der User einen Stock hinzufügt
+	       */
+	      stocksFlexTable.setText(row, 0, symbol);
+	      stocksFlexTable.getCellFormatter().addStyleName(row, 1, "watchListNumericColumn");
+	      stocksFlexTable.getCellFormatter().addStyleName(row, 2, "watchListNumericColumn");
+	      stocksFlexTable.getCellFormatter().addStyleName(row, 3, "watchListRemoveColumn");
+	      
 	      /**
 	       * Andekdote:
 	       * Wird die Methode setText() aufgerufen wird sich der FlexTabel automatisch anpassen.

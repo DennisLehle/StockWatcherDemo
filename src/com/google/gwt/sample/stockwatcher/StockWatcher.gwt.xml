@@ -13,9 +13,13 @@
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->
   <inherits name='com.google.gwt.user.theme.clean.Clean'/>
-  <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
+  
+  <!-- RTL -> Right to Left/ Die Fenster werden rechts am Rand angezeigt -->
+  
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/> 
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
-  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <!-- <inherits name='com.google.gwt.user.theme.standard.StandardRTL'/> -->
+	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>  -->
 
   <!-- Other module inherits                                      -->
 

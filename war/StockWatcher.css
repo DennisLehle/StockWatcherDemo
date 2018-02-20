@@ -1,5 +1,39 @@
 /** Add css rules here for your application. */
 
+/** Formatierung speziell für StockWatcher Applikation. */
+body{
+padding: 10px;
+}
+
+/** Stockliste Kopfzeile */
+.watchListHeader{
+	background-color: #2062B8;
+	color: white;
+	font-sytle: itanic;
+}
+
+/** Stockliste FlexTable */
+.watchList{
+	border: 1px solid silver;
+	padding: 2px;
+	marging-bottom: 6px;
+}
+
+/** Stockliste Preis und Änderung, Einstellung der Breite. */
+.watchListNumericColumn{
+	text-align: right;
+	width: 8em;
+}
+
+/** Stockliste Löschen Column */
+.watchListRemoveColumn{
+	text-align: center;
+}
+
+/** Hinzufügen StockPanel */
+.hinzufügePanel{
+	margin: 10px 0px 15px 0px;
+}
 
 /** Example rules used by the template application (remove for your app) */
 h1 {

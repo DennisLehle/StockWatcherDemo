@@ -95,7 +95,7 @@ public class StockWatcher implements EntryPoint {
 		 * Zuletzt wird das MainPanel, welches jetzt das AddPanel ebenfalls enthält zsmgefüht mit der HTML Hostpage.
 		 */
 		RootPanel.get("stockList").add(mainPanel);
-		
+			
 		/**
 		 * Wenn alles geladen wurde kann der User nun Stocks hinzufügen. Daher wird dies zuletzt angefügt.
 		 * Hierfür wird die TextBox für die Maus auf true gesetzt.

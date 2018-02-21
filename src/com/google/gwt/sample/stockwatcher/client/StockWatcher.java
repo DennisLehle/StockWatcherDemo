@@ -56,6 +56,12 @@ public class StockWatcher implements EntryPoint {
 		stocksFlexTable.setText(0, 3, "Löschen");
 		
 		/**
+		 * Gehört zu: Hinzufügen von Style elemente in die StockList Tabelle.
+		 * CellPadding wird für das Auffüllen der Zellen genutzt.
+		 */
+		stocksFlexTable.setCellPadding(6);
+		
+		/**
 		 * Hinzufügen von Style elemente in die StockList Tabelle.
 		 * Die Column ab dem 3ten stocksFlexTabble.getCellFormatter.addStyleName spiegeln
 		 * die Column wider die wir bei den Buttons oben festgelegt haben.

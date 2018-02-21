@@ -5,6 +5,14 @@ body{
 padding: 10px;
 }
 
+/** Image Centern */
+.center{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
 /** Stockliste Kopfzeile */
 .watchListHeader{
 	background-color: #2062B8;

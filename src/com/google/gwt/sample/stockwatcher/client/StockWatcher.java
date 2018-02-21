@@ -176,6 +176,11 @@ public class StockWatcher implements EntryPoint {
 	       * Hier wird der Style für den hinzugefügten Stock definiert, wenn der User einen Stock hinzufügt
 	       */
 	      stocksFlexTable.setText(row, 0, symbol);
+	      /**
+	       * Hier wird ein Label Widget erstellt für jede Zelle in Column 2.
+	       * 
+	       */
+	      stocksFlexTable.setWidget(row, 2, new Label());
 	      stocksFlexTable.getCellFormatter().addStyleName(row, 1, "watchListNumericColumn");
 	      stocksFlexTable.getCellFormatter().addStyleName(row, 2, "watchListNumericColumn");
 	      stocksFlexTable.getCellFormatter().addStyleName(row, 3, "watchListRemoveColumn");
@@ -191,6 +196,12 @@ public class StockWatcher implements EntryPoint {
 	       * Ein Button fürs löschen wird erzeugt.
 	       */
 	      Button löscheStockButton = new Button ("löschen");
+	      /**
+	       * CSS Style zum löschen Button hinzufügen.
+	       * Das Wort löschen wird in der CSS definiert. nicht wie der Button
+	       * oben genannt wurde.
+	       */
+	      löscheStockButton.addStyleDependentName("löschen");
 	      
 	      /**
 	       * Dem löschenStockButton wird ein ClickHandler zugewiesen der auf einen Click auf den Button wartet.
@@ -269,15 +280,36 @@ public class StockWatcher implements EntryPoint {
 			int row = stocks.indexOf(preis.getSymbol()) + 1;
 			
 			String preisText = NumberFormat.getFormat("#,##0.00").format(preis.getPreis());
-			NumberFormat ändernFormat = NumberFormat.getFormat("+#,##0.00;-#,##0.00");
-			String aenderungText = ändernFormat.format(preis.getAenderung());
-		    String aenderungProzentText = ändernFormat.format(preis.getAenderungProzent());
+			NumberFormat aendernFormat = NumberFormat.getFormat("+#,##0.00;-#,##0.00");
+			String aenderungText = aendernFormat.format(preis.getAenderung());
+		    String aenderungProzentText = aendernFormat.format(preis.getAenderungProzent());
 		    
 		    /**
 		     * Ausfüllen der Felder und Preis (Aktualisierung).
 		     */
 		    stocksFlexTable.setText(row, 1, preisText);
-		    stocksFlexTable.setText(row, 2, aenderungText + " (" + aenderungProzentText + "%)");
+		    Label aenderungWidget = (Label)stocksFlexTable.getWidget(row, 2);
+		    aenderungWidget.setText(aenderungText + " (" + aenderungProzentText + "%)");
+		    
+		    /**
+		     * Farbliche Änderung im Feld "Änderung" bei Positiven und Negativen Beiträgen.
+		     */
+		    String aendereStyleName = "keinChange";
+		    if (preis.getAenderungProzent() < -0.1f){
+		    	aendereStyleName = "negativeÄnderung";
+		    }
+		    else if (preis.getAenderungProzent() > 0.1f){
+		    	aendereStyleName = "positiveÄnderung";
+		    }
+		    
+		    aenderungWidget.setStyleName(aendereStyleName);
+		    
+		    /**
+		     * Wird für CSS ausgeblendet, weil man dies anfangs so programmieren soll wenn man
+		     * noch keine Farblichen Änderungen mit einbinden will bei 
+		     * Änderunge von positiven/negativen Beiträgen.
+		     */
+		   // stocksFlexTable.setText(row, 2, aenderungText + " (" + aenderungProzentText + "%)");
 		}
 		
 	}

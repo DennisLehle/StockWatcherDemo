@@ -5,12 +5,29 @@ body{
 padding: 10px;
 }
 
-/** Image Centern */
+.center2{
+	position: absolute;
+	width: 400px;
+	height: 250px;
+	top: 50%;
+	left: 50%;
+
+}
+
+/** Image Centern/ MainPanel Center */
 .center{
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
+	width: 70%;
+}
+
+/** Image Änderung/Probe */
+.centerImg{
+	
+	margin-left: auto;
+	margin-right: auto;
+	
 }
 
 /** Stockliste Kopfzeile */

@@ -1,5 +1,8 @@
 package com.google.gwt.sample.stockwatcher.client;
 
+import java.io.Serializable;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -13,7 +16,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author Dennis Lehle
  *
  */
-public class SetStockWatcherLayout {
+public class SetStockWatcherLayout implements Serializable{
 	
 	public HorizontalPanel swLayout = new HorizontalPanel();
 	

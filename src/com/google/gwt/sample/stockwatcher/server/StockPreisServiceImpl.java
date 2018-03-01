@@ -21,10 +21,18 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * Man kann hier auch Java Bibliotheken nutzen da diese Methoden auf dem Server laufen (Java Bytecode) 
  * und nicht in JavaScript übersetzt werden.
  * 
+ * Zu throws DelistedExcpetion:
+ * An diesem Punkt haben Sie den Code erstellt, der die Ausnahme auslöst. 
+ * Sie müssen die throws-Deklaration nicht zur Service-Methode in StockPriceServiceAsync.java hinzufügen. 
+ * Diese Methode kehrt immer sofort zurück (denken Sie daran, es ist asynchron). 
+ * Stattdessen erhalten Sie alle ausgelösten aktivierten Ausnahmen, 
+ *  wenn GWT die Callback-Methode onFailure (Throwable) aufruft.
+ * 
  * @author Dennis Lehle
  *
  */
 public class StockPreisServiceImpl extends RemoteServiceServlet implements StockPreisService{
+
 
 	private static final double MAX_PRICE = 100.0; // $100.00
 	private static final double MAX_PRICE_CHANGE = 0.02; // +/- 2%
@@ -33,7 +41,11 @@ public class StockPreisServiceImpl extends RemoteServiceServlet implements Stock
 		Random rand = new Random();
 		
 		StockPrice[] preise = new StockPrice[symbols.length];
+		
 		for(int i= 0; i<symbols.length; i++){
+			if(symbols[i].equals("ERR")){
+				throw new DelistedException("ERR");
+		}
 			double preis = rand.nextDouble()* MAX_PRICE;
 			double änderung = preis * MAX_PRICE_CHANGE * (rand.nextDouble() * 2f - 1f);
 			
@@ -42,8 +54,5 @@ public class StockPreisServiceImpl extends RemoteServiceServlet implements Stock
 		
 		return preise;
 	}
-	
-
-	
 
 }

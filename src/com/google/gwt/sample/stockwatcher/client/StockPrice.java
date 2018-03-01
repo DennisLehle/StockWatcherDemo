@@ -2,8 +2,11 @@ package com.google.gwt.sample.stockwatcher.client;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 public class StockPrice implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Deklaration der Variablen.
 	 */

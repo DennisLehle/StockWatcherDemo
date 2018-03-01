@@ -16,6 +16,7 @@ import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -32,7 +33,7 @@ import com.google.gwt.i18n.shared.DateTimeFormat;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class StockWatcher implements EntryPoint {
+public class StockWatcher implements EntryPoint{
 
 		/**
 		 * Alle wichtigen Panels, Button und Tabels um die Stockwatcher GUI aufzubauen.
@@ -52,6 +53,10 @@ public class StockWatcher implements EntryPoint {
 		 */
 		private StockPreisServiceAsync stockPService = GWT.create(StockPreisService.class);
 		    
+//		/**
+//		 * Es wird noch ein Label für die Error Nachricht erstellt.
+//		 */
+		private Label errorMsg = new Label();
 		
 		/**
 		 * Diese Methode wird geladen wenn der Button auf der Hauptseite des Stockwatchers gedrückt wurde.
@@ -98,18 +103,27 @@ public class StockWatcher implements EntryPoint {
 		 */
 		addPanel.add(newSymbolTextBox);
 		addPanel.add(addStockButton);
+		
+		/**
+		 * Das Label wird ein STyle per Css zugewiesen und Visible wird auf false gesetzt.
+		 * Bis ein Error auftauscht und wir im anderen Teil des Codes Visible auf true setzen um Error Messages anzuzeigen.
+		 */
+		errorMsg.setStyleName("errorMessage");
+		errorMsg.setVisible(false);
+		
 		/**
 		 * Style für das addPanel von CSS einbinden.
 		 * Fügt eine kleine Lücke zwischen TexBox/AddButton und dem Stock Table ein.
 		 */
 		addPanel.addStyleName("hinzufügePanel");
-		
+			
 		/**
 		 * Hier werden dem Vertikalen Panel den FlexTabel und das Label hinzugefügt plus 
 		 * das addPanel, welches wir oben festgelegt haben auch an das mainPanel geheftet/verbunden.
 		 * 
 		 * Dem MainPanel wird noch das swLayout hinzugefügt, welches das Google Image montiert..
 		 */
+		mainPanel.add(errorMsg);
 		mainPanel.add(layout.swLayout);
 		mainPanel.add(stocksFlexTable);
 		mainPanel.add(addPanel);
@@ -272,7 +286,13 @@ public class StockWatcher implements EntryPoint {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
+					
+				String details = caught.getMessage();
+				if(caught instanceof DelistedException){
+					details = "Company '" + ((DelistedException) caught).getSymbol() + "' was delisted";
+				}
+				errorMsg.setText("Error: " + details);
+				errorMsg.setVisible(true);
 					
 				}
 
@@ -325,7 +345,11 @@ public class StockWatcher implements EntryPoint {
 			 */
 			DateTimeFormat datumsFormat = DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM);
 			lastUpdatedLabel.setText("Letztes update : " + datumsFormat.format(new Date()));
-
+			
+//			/**
+//			 * Löschen der Error Nachrichten.
+//			 */
+//			errorMsg.setVisible(false);
 		}
 
 		/**

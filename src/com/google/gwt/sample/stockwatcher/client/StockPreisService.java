@@ -11,6 +11,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("stockPrice")
 public interface StockPreisService extends RemoteService{
 
-	StockPrice[] getPreis(String[] symbols);
+	StockPrice[] getPreis(String[] symbols) throws DelistedException;
 	
 }

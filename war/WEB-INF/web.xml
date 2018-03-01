@@ -4,21 +4,22 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
-
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.google.gwt.sample.stockwatcher.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/stockwatcher/greet</url-pattern>
-  </servlet-mapping>
-  
+         
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>StockWatcher.html</welcome-file>
   </welcome-file-list>
+    
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>stockPreisServiceImpl</servlet-name>
+    <servlet-class>com.google.gwt.sample.stockwatcher.server.StockPreisServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>stockPreisServiceImpl</servlet-name>
+    <url-pattern>/stockwatcher/stockPrice</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>
